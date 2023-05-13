@@ -54,7 +54,7 @@ export default function Navbar({ className }: INavbar) {
 
   return (
     <div
-      className={`nav-widget-wrapper w-full bg-qyellow h-[60px] relative z-30  ${
+      className={`nav-widget-wrapper w-full bg-blue-500 rounded-b-3xl h-[60px] relative z-30  ${
         className || ''
       }`}
     >
@@ -213,21 +213,21 @@ export default function Navbar({ className }: INavbar) {
                   </li> */}
                   <li>
                     <Link to="/about">
-                      <span className="flex items-center text-sm text-qblacktext font-600 cursor-pointer ">
+                      <span className="flex items-center text-sm text-white font-600 cursor-pointer ">
                         <span>About</span>
                       </span>
                     </Link>
                   </li>
                   <li>
                     <Link to="/blogs">
-                      <span className="flex items-center text-sm text-qblacktext font-600 cursor-pointer ">
+                      <span className="flex items-center text-sm text-white font-600 cursor-pointer ">
                         <span>Blog</span>
                       </span>
                     </Link>
                   </li>
                   <li>
                     <Link to="/contact">
-                      <span className="flex items-center text-sm text-qblacktext font-600 cursor-pointer ">
+                      <span className="flex items-center text-sm text-white font-600 cursor-pointer ">
                         <span>Contact</span>
                       </span>
                     </Link>
