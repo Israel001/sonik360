@@ -19,7 +19,7 @@ export default function Middlebar({ className }: IMiddlebar) {
   const { isLoggedIn, cart, wishlist } = useContext(AppContext);
 
   return (
-    <div className={`w-full h-[86px] bg-blue-500 ${className}`}>
+    <div className={`w-full h-[86px] bg-white ${className}`}>
       <div className="container-x mx-auto h-full">
         <div className="relative h-full">
           <div className="flex justify-between items-center h-full">
@@ -72,7 +72,7 @@ export default function Middlebar({ className }: IMiddlebar) {
                       <ThinBag />
                     </span>
                   </a>
-                  <span className="w-[18px] h-[18px] rounded-full bg-white absolute -top-2.5 -right-2.5 flex justify-center items-center text-[9px]">
+                  <span className="w-[18px] h-[18px] text-white rounded-full bg-blue-500 absolute -top-2.5 -right-2.5 flex justify-center items-center text-[9px]">
                     {cart.length}
                   </span>
                 </div>

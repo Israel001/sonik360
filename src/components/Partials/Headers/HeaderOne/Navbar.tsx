@@ -54,7 +54,7 @@ export default function Navbar({ className }: INavbar) {
 
   return (
     <div
-      className={`nav-widget-wrapper w-full bg-blue-500 rounded-b-3xl h-[60px] relative z-30  ${
+      className={`nav-widget-wrapper w-full bg-blue-500  h-[60px] relative z-30  ${
         className || ''
       }`}
     >
