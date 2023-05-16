@@ -19,7 +19,7 @@ export default function Ads({ handler }: { [x: string]: any }) {
                 <img
                   width="152"
                   height="36"
-                  src={`${process.env.PUBLIC_URL}/assets/images/sonik-logo.jpeg`}
+                  src={`${process.env.PUBLIC_URL}/assets/images/logo.svg`}
                   alt="logo"
                 />
               </a>

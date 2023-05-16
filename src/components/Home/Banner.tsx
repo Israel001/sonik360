@@ -17,7 +17,7 @@ export default function Banner({ className }: IBanner) {
                       srcSet={`${process.env.PUBLIC_URL}/assets/images/banner-1.png`}
                     />
                     <img
-                      src={`${process.env.PUBLIC_URL}/assets/images/banner-1.2.png`}
+                      src={`${process.env.PUBLIC_URL}/assets/images/banner-1.png`}
                       alt=""
                       className="w-full max-w-full h-auto object-cover"
                     />
@@ -31,7 +31,7 @@ export default function Banner({ className }: IBanner) {
                 <div className="w-full xl:h-1/2">
                   <a href="/single-product">
                     <img
-                      src={`${process.env.PUBLIC_URL}/assets/images/banner-2.png`}
+                      src={`${process.env.PUBLIC_URL}/assets/images/banner-3.png`}
                       alt=""
                       className="w-full h-full"
                     />

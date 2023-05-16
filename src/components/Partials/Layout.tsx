@@ -15,7 +15,7 @@ export default function Layout({ children, childrenClasses }: ILayout) {
       <Drawer open={drawer} action={() => setDrawer(!drawer)} />
       <div className="w-full overflow-x-hidden">
         <Header drawerAction={() => setDrawer(!drawer)} />
-        <div className={`w-full  ${childrenClasses || "pt-[30px] pb-[60px]"}`}>
+        <div className={`w-full  ${childrenClasses || "pb-[60px]"}`}>
           {children && children}
         </div>
         <DiscountBanner />

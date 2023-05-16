@@ -29,7 +29,7 @@ export default function Home() {
   return (
     <>
       <Layout>
-        {/* {ads && <Ads handler={adsHandle} />} */}
+        {ads && <Ads handler={adsHandle} />}
         <div className="btn w-5 h-5 "></div>
         <Banner className="banner-wrapper mb-[60px]" />
         <SectionStyleOne

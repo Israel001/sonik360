@@ -1,17 +1,19 @@
-import { Link } from "react-router-dom";
-import CountDown from "../Helpers/CountDown";
+import { Link } from 'react-router-dom';
+import CountDown from '../Helpers/CountDown';
 
 export default function CampaignCountDown({
   className,
   lastDate,
   counterbg,
   appscreen,
-}: { [x: string]: any }) {
+}: {
+  [x: string]: any;
+}) {
   const { showDate, showHour, showMinute, showSecound } = CountDown(lastDate);
 
   return (
     <div>
-      <div className={`w-full lg:h-[460px] ${className || ""}`}>
+      <div className={`w-full lg:h-[460px] ${className || ''}`}>
         <div className="container-x mx-auto h-full">
           <div className="lg:flex xl:space-x-[30px] lg:space-x-5 items-center h-full">
             <div
@@ -19,7 +21,7 @@ export default function CampaignCountDown({
               className="campaign-countdown lg:w-1/2 h-full w-full mb-5 lg:mb-0"
               style={{
                 background: `url(${process.env.PUBLIC_URL}/assets/images/campaign-cover-countdown.jpg) no-repeat`,
-                backgroundSize: "cover",
+                backgroundSize: 'cover',
               }}
             >
               <Link to="/flash-sale">
@@ -113,7 +115,7 @@ export default function CampaignCountDown({
                   counterbg ||
                   `${process.env.PUBLIC_URL}/assets/images/download-app-cover.png`
                 }) no-repeat`,
-                backgroundSize: "cover",
+                backgroundSize: 'cover',
               }}
             >
               <div className="flex flex-col h-full justify-between">

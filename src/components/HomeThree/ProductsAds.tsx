@@ -1,22 +1,24 @@
 export default function ProductsAds({
   className,
-  ads = ["", ""],
+  ads = ['', ''],
   sectionHeight,
-}: { [x: string]: any }) {
+}: {
+  [x: string]: any;
+}) {
   return (
-    <div className={`w-full ${className || ""}`}>
+    <div className={`w-full ${className || ''}`}>
       <div className="container-x mx-auto">
         <div
           className={`${sectionHeight} ${
             ads.length > 1 && ads.length <= 2
-              ? "sm:flex xl:space-x-[30px] sm:space-x-5"
-              : ""
+              ? 'sm:flex xl:space-x-[30px] sm:space-x-5'
+              : ''
           } items-center w-full  overflow-hidden`}
         >
           <div
             data-aos="fade-right"
             className={`h-full sm:mb-0 mb-5 ${
-              ads.length > 1 && ads.length <= 2 ? "sm:w-1/2 w-full" : "w-full"
+              ads.length > 1 && ads.length <= 2 ? 'sm:w-1/2 w-full' : 'w-full'
             }  `}
           >
             <a href="/single-product">

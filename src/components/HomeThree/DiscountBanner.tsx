@@ -2,11 +2,11 @@ export default function DiscountBanner({ className }: { [x: string]: any }) {
   return (
     <div
       className={`discount-banner w-full h-[307px] bg-cover flex justify-center items-center ${
-        className || ""
+        className || ''
       }`}
       style={{
         background: `url(${process.env.PUBLIC_URL}/assets/images/discount-banner-1.jpg) no-repeat`,
-        backgroundSize: "cover",
+        backgroundSize: 'cover',
       }}
     >
       <div>

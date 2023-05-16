@@ -1,8 +1,8 @@
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 export default function BestSellers({ className }: { [x: string]: any }) {
   return (
-    <div className={`w-full ${className || ""}`}>
+    <div className={`w-full ${className || ''}`}>
       <div className="grid xl:grid-cols-6 lg:grid-cols-5 sm:grid-cols-3 grid-cols-1 xl:gap-[30px] gap-5">
         <div
           data-aos="fade-left"
