@@ -7,11 +7,11 @@ export default function Ads({ handler }: { [x: string]: any }) {
           className="w-full h-full fixed left-0 right-0 bg-black  bg-opacity-25"
         ></div>
         <div
-          className="md:w-[812px] w-[310px] md:h-[509px] relative z-50 bg-slate-700 md:pl-10 pl-3 py-[108px] flex flex-col justify-between"
-          style={{
-            background: `url(${process.env.PUBLIC_URL}/assets/images/primary-ads.png) no-repeat`,
-            backgroundSize: 'cover',
-          }}
+          className="bg-[url('assets/images/primary-ads.png')] md:w-[812px] w-[310px] md:h-[509px] relative z-50 bg-slate-700 md:pl-10 pl-3 py-[108px] flex flex-col justify-between"
+          // style={{
+          //   backgroundImage:'assets/images/primary-ads.png',
+          //   backgroundSize: 'cover',
+          // }}
         >
           <div>
             <div className="logo mb-[20px]">

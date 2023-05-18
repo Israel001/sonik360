@@ -3,6 +3,9 @@ module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {
+      backgroundImage: {
+        'primary-ads': "url('assets/images/primary-ads.png')",
+      },
       colors: {
         primarygray: "#f8f8f8",
         qblack: "#222222",

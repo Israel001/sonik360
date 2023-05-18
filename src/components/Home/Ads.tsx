@@ -5,17 +5,14 @@ export interface IAds {
 export default function Ads({ handler }: IAds) {
   return (
     <>
-      <div className="w-full h-full flex fixed left-0 top-0 justify-center z-40 items-center">
+      <div className="w-full h-full b flex fixed left-0 top-0 justify-center z-40 items-center">
         <div
           onClick={handler}
           className="w-full h-full fixed left-0 right-0 bg-black  bg-opacity-25"
         ></div>
         <div
-          className="md:w-[812px] w-[310px] md:h-[509px] relative z-50 bg-slate-700 md:pl-10 pl-3 py-[108px] flex flex-col justify-between"
-          style={{
-            background: `url(${process.env.PUBLIC_URL}/assets/images/primary-ads.png) no-repeat`,
-            backgroundSize: 'cover',
-          }}
+          className="md:w-[812px] w-[310px] md:h-[509px] relative z-50 bg-[url('assets/images/primary-ads.png')] md:pl-10 pl-3 py-[108px] flex flex-col justify-between"
+         
         >
           <div>
             <div className="logo mb-[20px]">
@@ -23,7 +20,7 @@ export default function Ads({ handler }: IAds) {
                 <img
                   width="152"
                   height="36"
-                  src={`${process.env.PUBLIC_URL}/assets/images/sonik-logo.jpeg`}
+                  src={`${process.env.PUBLIC_URL}/assets/images/sonik-logo1.png`}
                   alt="logo"
                 />
               </a>
@@ -41,7 +38,7 @@ export default function Ads({ handler }: IAds) {
             </p>
           </div>
           <div className="md:w-[415px] w-full h-[54px] sm:flex mt-8">
-            <div className="flex-1 bg-white pl-4 flex space-x-2 items-center h-full focus-within:text-qyellow text-qblack">
+            <div className="flex-1 bg-white pl-4 flex space-x-2 items-center h-full focus-within:text-blue-500 text-qblack">
               <span>
                 <svg
                   width="17"
@@ -75,7 +72,7 @@ export default function Ads({ handler }: IAds) {
             </div>
             <button
               type="button"
-              className="w-[120px] h-full bg-qyellow text-sm font-600"
+              className="w-[120px] h-full bg-blue-500 text-white text-sm font-600"
             >
               Subscribe
             </button>
