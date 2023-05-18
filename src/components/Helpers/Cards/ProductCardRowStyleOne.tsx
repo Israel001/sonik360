@@ -46,8 +46,8 @@ export default function ProductCardRowStyleTwo({ className, datas }: IProductCar
                 {datas.offer_price}
               </span>
             </p>
-            <button type="button" className="w-[110px] h-[30px]">
-              <span className="yellow-btn"> Add To Cart</span>
+            <button type="button" className="w-[110px] h-[30px] bg-blue-500 text-white">
+              <span className="yellow-btn "> Add To Cart</span>
             </button>
           </div>
         </div>

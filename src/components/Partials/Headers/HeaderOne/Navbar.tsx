@@ -26,9 +26,9 @@ export default function Navbar({ className, type }: INavbar) {
 
   return (
     <div
-      className={`nav-widget-wrapper w-full  h-[60px] relative z-30 ${
-        type === 3 ? 'bg-qh3-blue' : 'bg-qyellow'
-      }  ${className || ''}`}
+      className={`nav-widget-wrapper w-full bg-blue-500  h-[60px] relative z-30  ${
+        className || ''
+      }`}
     >
       <div className="container-x mx-auto h-full">
         <div className="w-full h-full relative">
@@ -1151,33 +1151,21 @@ export default function Navbar({ className, type }: INavbar) {
                   </li>
                   <li>
                     <Link to="/about">
-                      <span
-                        className={`flex items-center text-sm font-600 cursor-pointer ${
-                          type === 3 ? 'text-white' : 'text-qblacktext'
-                        }`}
-                      >
+                      <span className="flex items-center text-sm text-white font-600 cursor-pointer ">
                         <span>About</span>
                       </span>
                     </Link>
                   </li>
                   <li>
                     <Link to="/blogs">
-                      <span
-                        className={`flex items-center text-sm font-600 cursor-pointer ${
-                          type === 3 ? 'text-white' : 'text-qblacktext'
-                        }`}
-                      >
+                      <span className="flex items-center text-sm text-white font-600 cursor-pointer ">
                         <span>Blog</span>
                       </span>
                     </Link>
                   </li>
                   <li>
                     <Link to="/contact">
-                      <span
-                        className={`flex items-center text-sm font-600 cursor-pointer ${
-                          type === 3 ? 'text-white' : 'text-qblacktext'
-                        }`}
-                      >
+                      <span className="flex items-center text-sm text-white font-600 cursor-pointer ">
                         <span>Contact</span>
                       </span>
                     </Link>

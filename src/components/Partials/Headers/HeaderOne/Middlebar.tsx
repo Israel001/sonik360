@@ -33,7 +33,7 @@ export default function Middlebar({ className }: IMiddlebar) {
                 />
               </a>
             </div>
-            <div className="w-[517px] h-[44px]">
+            <div className="w-[517px] h-[44px] rounded-lg">
               <SearchBox className="search-com" />
             </div>
             <div className="flex space-x-6 items-center">
@@ -55,7 +55,7 @@ export default function Middlebar({ className }: IMiddlebar) {
                     </span>
                   </a>
                   {wishlist.length ? (
-                    <span className="w-[18px] h-[18px] rounded-full bg-qyellow absolute -top-2.5 -right-2.5 flex justify-center items-center text-[9px]">
+                    <span className="w-[18px] h-[18px] rounded-full bg-blue-500 absolute -top-2.5 -right-2.5 flex justify-center items-center text-[9px]">
                       {wishlist.length}
                     </span>
                   ) : (
@@ -72,7 +72,7 @@ export default function Middlebar({ className }: IMiddlebar) {
                       <ThinBag />
                     </span>
                   </a>
-                  <span className="w-[18px] h-[18px] rounded-full bg-qyellow absolute -top-2.5 -right-2.5 flex justify-center items-center text-[9px]">
+                  <span className="w-[18px] h-[18px] text-white rounded-full bg-blue-500 absolute -top-2.5 -right-2.5 flex justify-center items-center text-[9px]">
                     {cart.length}
                   </span>
                 </div>

@@ -16,7 +16,7 @@ export default function DiscountBanner({ className }: IDiscountBanner) {
       <div>
         <div data-aos="fade-up">
           <h1 className="sm:text-3xl text-xl font-700 text-qblack mb-2 text-center">
-            Get <span className="mx-1 text-qyellow">20%</span> Off Discount
+            Get <span className="mx-1 text-blue-500">20%</span> Off Discount
             Coupon
           </h1>
           <p className="text-center sm:text-[18px] text-sm font-400">
@@ -27,7 +27,7 @@ export default function DiscountBanner({ className }: IDiscountBanner) {
           data-aos="fade-right"
           className="sm:w-[543px] w-[300px] h-[54px] flex mt-8"
         >
-          <div className="flex-1 bg-white pl-4 flex space-x-2 items-center h-full focus-within:text-qyellow text-qblack">
+          <div className="flex-1 bg-white pl-4 flex space-x-2 items-center h-full focus-within:text-blue-500 text-qblack">
             <span>
               <svg
                 width="17"
@@ -61,7 +61,7 @@ export default function DiscountBanner({ className }: IDiscountBanner) {
           </div>
           <button
             type="button"
-            className="sm:w-[158px] w-[80px]  h-full bg-qyellow text-sm font-600"
+            className="sm:w-[158px] w-[80px]  h-full bg-blue-500 text-white text-sm font-600"
           >
             Get the Coupon
           </button>

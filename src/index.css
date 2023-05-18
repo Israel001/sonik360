@@ -112,7 +112,7 @@ body {
 }
 
 .yellow-btn {
-  @apply w-full text-[13px] text-qblacktext font-semibold bg-qyellow flex justify-center items-center h-full;
+  @apply w-full text-[13px] text-white font-semibold bg-blue-500  flex justify-center items-center h-full;
   line-height: 0;
 }
 .gray-btn {
@@ -130,7 +130,7 @@ body {
 }
 /*TODO:  ========= home one ========= */
 .home-one .search-btn {
-  @apply bg-qyellow text-qblack;
+  @apply bg-blue-500 text-white;
 }
 .home-one .cart-wrappwer {
   @apply border-qyellow;
