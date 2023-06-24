@@ -1,6 +1,8 @@
 export interface IBanner {
   [x: string]: any;
 }
+const banner2 =  require("../../assets/images/banner-2.png")
+const banner3 =  require("../../assets/images/banner-3.png")
 
 export default function Banner({ className }: IBanner) {
   return (
@@ -31,7 +33,7 @@ export default function Banner({ className }: IBanner) {
                 <div className="w-full xl:h-1/2">
                   <a href="/single-product">
                     <img
-                      src={`${process.env.PUBLIC_URL}/assets/images/banner-3.png`}
+                      src={banner2}
                       alt=""
                       className="w-full h-full"
                     />
@@ -40,7 +42,7 @@ export default function Banner({ className }: IBanner) {
                 <div className="w-full xl:h-1/2">
                   <a href="/single-product">
                     <img
-                      src={`${process.env.PUBLIC_URL}/assets/images/banner-3.png`}
+                      src={banner3}
                       alt=""
                       className="w-full h-full"
                     />

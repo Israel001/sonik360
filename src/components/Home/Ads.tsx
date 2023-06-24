@@ -1,6 +1,7 @@
 export interface IAds {
   [x: string]: any;
 }
+const logo =  require("../../assets/images/sonik-logo1.png")
 
 export default function Ads({ handler }: IAds) {
   return (
@@ -20,7 +21,7 @@ export default function Ads({ handler }: IAds) {
                 <img
                   width="152"
                   height="36"
-                  src={`${process.env.PUBLIC_URL}/assets/images/sonik-logo1.png`}
+                  src={logo}
                   alt="logo"
                 />
               </a>

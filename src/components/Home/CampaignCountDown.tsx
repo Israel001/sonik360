@@ -5,6 +5,10 @@ export interface ICampaignCountDown {
   [x: string]: any;
 }
 
+const appScreen = require('../../assets/images/app-screen.png')
+  const playStore = require('../../assets/images/play-store.png')
+  const appStore = require('../../assets/images/apple-store.png')
+
 export default function CampaignCountDown({
   className,
   lastDate,
@@ -12,7 +16,7 @@ export default function CampaignCountDown({
   appscreen,
 }: ICampaignCountDown) {
   const { showDate, showHour, showMinute, showSecound } = CountDown(lastDate);
-
+  
   return (
     <div>
       <div className={`w-full lg:h-[460px] ${className || ""}`}>
@@ -20,11 +24,11 @@ export default function CampaignCountDown({
           <div className="lg:flex xl:space-x-[30px] lg:space-x-5 items-center h-full">
             <div
               data-aos="fade-right"
-              className="campaign-countdown lg:w-1/2 h-full w-full mb-5 lg:mb-0"
-              style={{
-                background: `url(${process.env.PUBLIC_URL}/assets/images/campaign-cover-countdown.jpg) no-repeat`,
-                backgroundSize: "cover",
-              }}
+              className="campaign-countdown bg-[url('assets/images/campaign.jpg')] lg:w-1/2 h-full w-full mb-5 lg:mb-0"
+              // style={{
+              //   background: `url(${process.env.PUBLIC_URL}/assets/images/campaign-cover-countdown.jpg) no-repeat`,
+              //   backgroundSize: "cover",
+              // }}
             >
               <Link to="/flash-sale">
                 <div className="w-full xl:p-12 p-5">
@@ -75,7 +79,7 @@ export default function CampaignCountDown({
                       WOO! Flash Sale
                     </h1>
                   </div>
-                  <div className="inline-flex space-x-2 items-center border-b border-qyellow">
+                  <div className="inline-flex space-x-2 items-center border-b border-blue-500">
                     <span className="text-sm font-600 tracking-wide leading-7">
                       Shop Now
                     </span>
@@ -111,14 +115,14 @@ export default function CampaignCountDown({
             </div>
             <div
               data-aos="fade-left"
-              className="download-app flex-1 lg:h-full h-[430px] xl:p-12 p-5"
-              style={{
-                background: `url(${
-                  counterbg ||
-                  `${process.env.PUBLIC_URL}/assets/images/download-app-cover.png`
-                }) no-repeat`,
-                backgroundSize: "cover",
-              }}
+              className="download-app bg-[url('assets/images/download-app-cover.png')] flex-1 lg:h-full h-[430px] xl:p-12 p-5"
+              // style={{
+              //   background: `url(${
+              //     counterbg ||
+              //     `${process.env.PUBLIC_URL}/assets/images/download-app-cover.png`
+              //   }) no-repeat`,
+              //   backgroundSize: "cover",
+              // }}
             >
               <div className="flex flex-col h-full justify-between">
                 <div className="get-app">
@@ -138,7 +142,7 @@ export default function CampaignCountDown({
                         <img
                           width="170"
                           height="69"
-                          src={`${process.env.PUBLIC_URL}/assets/images/play-store.png`}
+                          src={playStore}
                           alt=""
                         />
                       </a>
@@ -148,7 +152,7 @@ export default function CampaignCountDown({
                         <img
                           width="170"
                           height="69"
-                          src={`${process.env.PUBLIC_URL}/assets/images/apple-store.png`}
+                          src={appStore}
                           alt=""
                         />
                       </a>
@@ -159,7 +163,7 @@ export default function CampaignCountDown({
                   <img
                     src={
                       appscreen ||
-                      `${process.env.PUBLIC_URL}/assets/images/app-screen.png`
+                      appScreen
                     }
                     alt=""
                   />

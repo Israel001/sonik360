@@ -1,10 +1,13 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["./src/**/*.{js,jsx,ts,tsx}"],
+  content: ["./src/**/*.{js,jscampaignx,ts,tsx}"],
   theme: {
     extend: {
       backgroundImage: {
         'primary-ads': "url('assets/images/primary-ads.png')",
+        'campaign': "url('assets/images/campaign.jpg')",
+        'download-app-cover': "url('assets/images/download-app-cover.png')",
+        'discount-banner': "url('assets/images/discount-banner-1.jpg')"
       },
       colors: {
         primarygray: "#f8f8f8",

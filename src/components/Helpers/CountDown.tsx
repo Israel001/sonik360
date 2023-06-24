@@ -20,7 +20,7 @@ function CountDown(lastDate: string) {
   //   console.log(minutes);
   const seconds = provideDate.getSeconds();
   //   console.log(seconds);
-
+  
   // date calculation logic
   const _seconds = 1000;
   const _minutes = _seconds * 60;

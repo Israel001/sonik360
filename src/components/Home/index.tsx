@@ -94,12 +94,12 @@ export default function Home() {
           ads={[`${process.env.PUBLIC_URL}/assets/images/ads-4.png`]}
           className="products-ads-section mb-[60px]"
         />
-        <SectionStyleFour
+        {/* <SectionStyleFour
           products={products}
           sectionTitle="Popular Sales"
           seeMoreUrl="/all-products"
           className="category-products mb-[60px]"
-        />
+        /> */}
       </Layout>
     </>
   );

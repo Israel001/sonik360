@@ -1,8 +1,13 @@
 import Facebook from '../../../Helpers/icons/Facebook';
 import Instagram from '../../../Helpers/icons/Instagram';
-import Youtube from '../../../Helpers/icons/Youtube';
+// import Youtube from '../../../Helpers/icons/Youtube';
+import Twitter from '../../../Helpers/icons/twitter';
+
 
 export default function Footer({ type }: { [x: string]: any }) {
+
+  const date = new Date()
+  // const year = date.getFullYear()
   return (
     <footer className="footer-section-wrapper bg-white print:hidden">
       <div className="container-x block mx-auto pt-[56px]">
@@ -34,15 +39,14 @@ export default function Footer({ type }: { [x: string]: any }) {
         <div className="lg:flex justify-between mb-[50px]">
           <div className="lg:w-[424px]  ml-0 w-full mb-10 lg:mb-0">
             <h1 className="text-[18] font-500 text-[#2F2F2F] mb-5">About Us</h1>
-            <p className="text-[#9A9A9A] text-[15px] w-[247px] leading-[28px]">
-              We know there are a lot of threa developers our but we pride into
-              a firm in the industry.
+            <p className="text-[#9A9A9A] text-[15px] w-[267px] leading-[28px]">
+               We strive to provide the best products at the most affordable prices with unparalleled convenience, making life easier for all.
             </p>
           </div>
           <div className="flex-1 lg:flex">
             <div className="lg:w-1/3 w-full mb-10 lg:mb-0">
               <div className="mb-5">
-                <h6 className="text-[18] font-500 text-[#2F2F2F]">Feature</h6>
+                <h6 className="text-[18] font-500 text-[#2F2F2F]">Pages</h6>
               </div>
               <div>
                 <ul className="flex flex-col space-y-4 ">
@@ -56,14 +60,14 @@ export default function Footer({ type }: { [x: string]: any }) {
                   <li>
                     <a href="/terms-condition">
                       <span className="text-[#9A9A9A] text-[15px] hover:text-qblack border-b border-transparent hover:border-qblack cursor-pointer capitalize">
-                        Terms Condition
+                        Terms and Conditions
                       </span>
                     </a>
                   </li>
                   <li>
                     <a href="/all-products">
                       <span className="text-[#9A9A9A] text-[15px] hover:text-qblack border-b border-transparent hover:border-qblack cursor-pointer capitalize">
-                        Best Products
+                        All Products
                       </span>
                     </a>
                   </li>
@@ -141,27 +145,30 @@ export default function Footer({ type }: { [x: string]: any }) {
         <div className="bottom-bar border-t border-qgray-border lg:h-[82px] lg:flex justify-between items-center">
           <div className="flex lg:space-x-5 justify-between items-center mb-3">
             <div className="flex space-x-5 items-center">
-              <a href="#">
+              <a href="https://www.instagram.com/sonik360_nigeria/"  target="_blank"
+                rel="noreferrer">
                 <Instagram className="fill-current text-qgray hover:text-qblack" />
               </a>
-              <a href="#">
+              <a href="https://web.facebook.com/sonik360Nigeria" target="_blank"
+                rel="noreferrer">
                 <Facebook className="fill-current text-qgray hover:text-qblack" />
               </a>
-              <a href="#">
-                <Youtube className="fill-current text-qgray hover:text-qblack" />
+              <a href="https://twitter.com/Sonik360Nigeria" target="_blank"
+                rel="noreferrer">
+                <Twitter  />
               </a>
             </div>
             <span className="sm:text-base text-[10px] text-qgray font-300">
-              ©2022
+               {date.getFullYear()} 
               <a
-                href="https://quomodosoft.com/"
+                href="https://sonik360.com/"
                 target="_blank"
                 rel="noreferrer"
-                className="font-500 text-qblack mx-1"
+                className="font-500 text-qblack mx-3"
               >
-                Quomodosoft
+                sonik360
               </a>
-              All rights reserved
+              All rights reserved 
             </span>
           </div>
           <div className="">

@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 
+const ads1 = require('../../assets/images/ads-1.png')
 export interface IBestSellers {
   [x: string]: any;
 }
