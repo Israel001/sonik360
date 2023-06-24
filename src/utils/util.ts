@@ -2,7 +2,7 @@ import { LOCAL_STORAGE_KEYS } from '../context/appcontext';
 
 const baseUrl = process.env.REACT_APP_SERVER_URL;
 
-export const login = async (email: string, password: string) => {
+export const login = async (email: string, password: string, userSetter: Function) => {
   const loginResponse = await fetch(`${baseUrl}/auth/login`, {
     method: 'POST',
     headers: {
@@ -13,7 +13,6 @@ export const login = async (email: string, password: string) => {
       password: password,
     }),
   }).then((response) => response.json());
-  console.log('login', loginResponse);
   if (loginResponse.message) {
     alert(loginResponse.message);
     return false;
@@ -26,11 +25,12 @@ export const login = async (email: string, password: string) => {
       LOCAL_STORAGE_KEYS.USER,
       JSON.stringify(loginResponse.user),
     );
+    userSetter(loginResponse.user);
     localStorage.setItem(
       LOCAL_STORAGE_KEYS.LAST_LOGGED_IN,
       new Date().getTime().toString(),
     );
-    setTimeout(() => login(email, password), 3000000);
+    setTimeout(() => login(email, password, userSetter), 3000000);
     return true;
   }
 };

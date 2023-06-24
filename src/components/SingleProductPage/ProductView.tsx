@@ -2,6 +2,8 @@ import { useState } from 'react';
 import Star from '../Helpers/icons/Star';
 import Selectbox from '../Helpers/Selectbox';
 import { IProduct } from '../Helpers/SearchBox';
+import { LOCAL_STORAGE_KEYS, useAppContext } from '../../context/appcontext';
+import { toast } from 'react-toastify';
 
 const baseUrl = process.env.REACT_APP_SERVER_URL;
 
@@ -23,6 +25,7 @@ export default function ProductView({
   });
 
   const [src, setSrc] = useState(productsImg[0].src);
+  const [selectedColor, setSelectedColor] = useState('');
   const changeImgHandler = (current: string) => {
     setSrc(current);
   };
@@ -35,6 +38,8 @@ export default function ProductView({
       setQuantity((prev) => prev - 1);
     }
   };
+
+  const { cart, setCart } = useAppContext();
 
   return (
     <div
@@ -131,6 +136,9 @@ export default function ProductView({
               {product.colors.split(',').map((color, idx) => (
                 <div key={idx}>
                   <button
+                    onClick={() => {
+                      setSelectedColor(color);
+                    }}
                     // onClick={() => changeImgHandler(img.src)}
                     type="button"
                     style={{ '--tw-ring-color': `${color}` } as any}
@@ -235,6 +243,49 @@ export default function ProductView({
               <button
                 type="button"
                 className="black-btn text-sm font-semibold w-full h-full"
+                onClick={(event) => {
+                  event.stopPropagation();
+                  const clonedCart = [...cart];
+                  const itemInCart = clonedCart.find(
+                    (c) => c.id === product.slug,
+                  );
+                  if (itemInCart) {
+                    if (itemInCart.quantity + quantity > product.availability) {
+                      toast.error(
+                        `Only ${Math.abs(
+                          product.availability - itemInCart.quantity,
+                        )} left in stock`,
+                      );
+                      return;
+                    }
+                    itemInCart.quantity += quantity;
+                  } else {
+                    if (quantity > product.availability) {
+                      toast.error(
+                        `Only ${product.availability - quantity} left in stock`,
+                      );
+                      return;
+                    }
+                    clonedCart.push({
+                      image: `${baseUrl}/${product.image.split(',')[0]}`,
+                      productName: product.name,
+                      price: product.price,
+                      quantity,
+                      color: selectedColor,
+                      id: product.slug,
+                      inStock: product.availability,
+                      attributes: product.attributes
+                    });
+                  }
+                  setCart(clonedCart);
+                  localStorage.setItem(
+                    LOCAL_STORAGE_KEYS.CART,
+                    JSON.stringify(clonedCart),
+                  );
+                  toast.success('Item added to cart successfully!', {
+                    toastId: 'add-item-to-cart',
+                  });
+                }}
               >
                 Add To Cart
               </button>

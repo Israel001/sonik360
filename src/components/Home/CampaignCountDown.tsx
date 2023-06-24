@@ -134,7 +134,7 @@ export default function CampaignCountDown({
                   </h1>
                   <div className="flex space-x-5 items-center">
                     <div>
-                      <a href="#">
+                      <a>
                         <img
                           width="170"
                           height="69"
@@ -144,7 +144,7 @@ export default function CampaignCountDown({
                       </a>
                     </div>
                     <div>
-                      <a href="#">
+                      <a>
                         <img
                           width="170"
                           height="69"

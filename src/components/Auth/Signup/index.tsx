@@ -17,7 +17,7 @@ const Signup = () => {
     setValue(!checked);
   };
 
-  const { setIsLoggedIn } = useAppContext();
+  const { setIsLoggedIn, setUser } = useAppContext();
 
   const { fields, dirty, submit, submitting } = useForm({
     fields: {
@@ -91,11 +91,10 @@ const Signup = () => {
           address: fieldValues.address
         })
       }).then((response) => response.json());
-      console.log('response', response);
       if (response.message) {
         alert(response.message);
       } else {
-        const result = await login(fieldValues.email, fieldValues.password);
+        const result = await login(fieldValues.email, fieldValues.password, setUser);
         if (result) {
           setIsLoggedIn(true);
           navigate("/");

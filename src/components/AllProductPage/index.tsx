@@ -6,7 +6,6 @@ import Layout from '../Partials/Layout';
 import ProductsFilter from './ProductsFilter';
 import { IProduct } from '../Helpers/SearchBox';
 import qs from 'query-string';
-import { LOCAL_STORAGE_KEYS } from '../../context/appcontext';
 
 const baseUrl = process.env.REACT_APP_SERVER_URL;
 
@@ -41,26 +40,46 @@ export default function AllProductPage() {
   };
 
   const searchProduct = async (query: string) => {
-    const response = await fetch(
-      `${baseUrl}/products/search/${query}`,
-    ).then((response) => response.json());
+    const response = await fetch(`${baseUrl}/products/search/${query}`).then(
+      (response) => response.json(),
+    );
     setProducts(response.data);
     setDisplayFilters(false);
-  }
+  };
+
+  const filterProduct = async (category: string, value: string) => {
+    const response = await fetch(
+      `${baseUrl}/products/${category}/${value}`,
+    ).then((response) => response.json());
+    setProducts(response);
+    setDisplayFilters(false);
+  };
 
   useEffect(() => {
     const parsed = qs.parse(location.search);
-    if (parsed.search) {
-      searchProduct(parsed.search as string)
-    } else {
-      if (volume.min < 0) {
-        setVolume({ min: 0, max: maxPrice });
+    let isAFilter = false;
+    Object.entries(parsed).forEach(([k, v]) => {
+      if (k.includes('[')) {
+        const key = k.split('[');
+        if (key[0] === 'filter') {
+          isAFilter = true;
+          filterProduct(key[1].substring(0, key[1].length - 1), v as any);
+        }
       }
-      const filtersToUse: string[] = [];
-      Object.entries(filters).map(([k, v]) => {
-        if (v) filtersToUse.push(k);
-      });
-      fetchProducts(filtersToUse.join(','), volume);
+    });
+    if (!isAFilter) {
+      if (parsed.search) {
+        searchProduct(parsed.search as string);
+      } else {
+        if (volume.min < 0) {
+          setVolume({ min: 0, max: maxPrice });
+        }
+        const filtersToUse: string[] = [];
+        Object.entries(filters).map(([k, v]) => {
+          if (v) filtersToUse.push(k);
+        });
+        fetchProducts(filtersToUse.join(','), volume);
+      }
     }
   }, [filters, volume]);
 

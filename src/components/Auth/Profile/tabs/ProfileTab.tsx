@@ -261,7 +261,6 @@ export default function ProfileTab() {
           Update Profile
         </button>
       </div>
-      <ToastContainer />
     </>
   );
 }

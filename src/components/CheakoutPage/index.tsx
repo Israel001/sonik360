@@ -1,8 +1,70 @@
-import InputCom from "../Helpers/InputCom";
-import PageTitle from "../Helpers/PageTitle";
-import Layout from "../Partials/Layout";
+import { useEffect, useState } from 'react';
+import { LOCAL_STORAGE_KEYS, useAppContext } from '../../context/appcontext';
+import withLoginContext from '../../hoc/withLoginContext';
+import InputCom from '../Helpers/InputCom';
+import PageTitle from '../Helpers/PageTitle';
+import Layout from '../Partials/Layout';
+import { useNavigate } from 'react-router-dom';
+import { useField, useForm } from '@shopify/react-form';
+import { PaystackButton } from 'react-paystack';
 
-export default function CheakoutPage() {
+const baseUrl = process.env.REACT_APP_SERVER_URL;
+
+const CheckoutPage = () => {
+  const { cart, user, setCart } = useAppContext();
+  const navigate = useNavigate();
+  const [displayButton, setDisplayButton] = useState(true);
+
+  useEffect(() => {
+    const cart = localStorage.getItem(LOCAL_STORAGE_KEYS.CART);
+    if (!cart || !JSON.parse(cart).length) navigate('/cart');
+  }, []);
+
+  const { fields } = useForm({
+    fields: {
+      firstname: useField({
+        value: user?.firstname,
+        validates: (value) => {
+          if (!value) return 'First name is required';
+          if (value.length > 50) return 'First name is too long';
+        },
+      }),
+      lastname: useField({
+        value: user?.lastname,
+        validates: (value) => {
+          if (!value) return 'Last name is required';
+          if (value.length > 50) return 'Last name is too long';
+        },
+      }),
+      email: useField({
+        value: user?.email,
+        validates: (value) => {
+          if (!value) return 'Email is required';
+          if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value))
+            return 'Email should be a valid email address';
+        },
+      }),
+      phone: useField({
+        value: user?.phone,
+        validates: (value) => {
+          if (!value) return 'Phone number is required';
+          if (value.length > 15) return 'Provide a valid phone number';
+        },
+      }),
+      address: useField({
+        value: user?.address,
+        validates: (value) => {
+          if (!value) return 'Address is required';
+          if (value.length > 200) return 'Address is too long';
+        },
+      }),
+    },
+  });
+
+  const hasValidationError = Object.entries(fields).some(([_k, v]) => {
+    return !v.value || v.error;
+  });
+
   return (
     <Layout childrenClasses="pt-0 pb-0">
       <div className="checkout-page-wrapper w-full bg-white pb-[60px]">
@@ -10,14 +72,14 @@ export default function CheakoutPage() {
           <PageTitle
             title="Checkout"
             breadcrumb={[
-              { name: "home", path: "/" },
-              { name: "checkout", path: "/checkout" },
+              { name: 'home', path: '/' },
+              { name: 'checkout', path: '/checkout' },
             ]}
           />
         </div>
         <div className="checkout-main-content w-full">
           <div className="container-x mx-auto">
-            <div className="w-full sm:mb-10 mb-5">
+            {/* <div className="w-full sm:mb-10 mb-5">
               <div className="sm:flex sm:space-x-[18px] s">
                 <div className="sm:w-1/2 w-full mb-5 h-[70px]">
                   <a href="#">
@@ -38,11 +100,11 @@ export default function CheakoutPage() {
                   </a>
                 </div>
               </div>
-            </div>
+            </div> */}
             <div className="w-full lg:flex lg:space-x-[30px]">
               <div className="lg:w-1/2 w-full">
                 <h1 className="sm:text-2xl text-xl text-qblack font-medium mb-5">
-                  Billing Details
+                  Shipping Details
                 </h1>
                 <div className="form-area">
                   <form>
@@ -52,14 +114,28 @@ export default function CheakoutPage() {
                           label="First Name*"
                           placeholder="Demo Name"
                           inputClasses="w-full h-[50px]"
-                        />
+                          inputAttr={fields.firstname as any}
+                        >
+                          {fields.firstname.error && (
+                            <span style={{ color: 'red' }}>
+                              {fields.firstname.error}
+                            </span>
+                          )}
+                        </InputCom>
                       </div>
                       <div className="flex-1">
                         <InputCom
                           label="Last Name*"
                           placeholder="Demo Name"
                           inputClasses="w-full h-[50px]"
-                        />
+                          inputAttr={fields.lastname as any}
+                        >
+                          {fields.lastname.error && (
+                            <span style={{ color: 'red' }}>
+                              {fields.lastname.error}
+                            </span>
+                          )}
+                        </InputCom>
                       </div>
                     </div>
                     <div className="flex space-x-5 items-center mb-6">
@@ -68,17 +144,31 @@ export default function CheakoutPage() {
                           label="Email Address*"
                           placeholder="demoemial@gmail.com"
                           inputClasses="w-full h-[50px]"
-                        />
+                          inputAttr={fields.email as any}
+                        >
+                          {fields.email.error && (
+                            <span style={{ color: 'red' }}>
+                              {fields.email.error}
+                            </span>
+                          )}
+                        </InputCom>
                       </div>
                       <div className="flex-1">
                         <InputCom
                           label="Phone Number*"
                           placeholder="012 3  *******"
                           inputClasses="w-full h-[50px]"
-                        />
+                          inputAttr={fields.phone as any}
+                        >
+                          {fields.phone.error && (
+                            <span style={{ color: 'red' }}>
+                              {fields.phone.error}
+                            </span>
+                          )}
+                        </InputCom>
                       </div>
                     </div>
-                    <div className="mb-6">
+                    {/* <div className="mb-6">
                       <h1 className="input-label capitalize block  mb-2 text-qgray text-[13px] font-normal">
                         Country*
                       </h1>
@@ -101,17 +191,24 @@ export default function CheakoutPage() {
                           </svg>
                         </span>
                       </div>
-                    </div>
+                    </div> */}
                     <div className=" mb-6">
                       <div className="w-full">
                         <InputCom
                           label="Address*"
                           placeholder="your address here"
                           inputClasses="w-full h-[50px]"
-                        />
+                          inputAttr={fields.address as any}
+                        >
+                          {fields.address.error && (
+                            <span style={{ color: 'red' }}>
+                              {fields.address.error}
+                            </span>
+                          )}
+                        </InputCom>
                       </div>
                     </div>
-                    <div className="flex space-x-5 items-center mb-6">
+                    {/* <div className="flex space-x-5 items-center mb-6">
                       <div className="w-1/2">
                         <h1 className="input-label capitalize block  mb-2 text-qgray text-[13px] font-normal">
                           Town / City*
@@ -143,8 +240,8 @@ export default function CheakoutPage() {
                           inputClasses="w-full h-[50px]"
                         />
                       </div>
-                    </div>
-                    <div className="flex space-x-2 items-center mb-10">
+                    </div> */}
+                    {/* <div className="flex space-x-2 items-center mb-10">
                       <div>
                         <input type="checkbox" name="" id="create" />
                       </div>
@@ -170,7 +267,7 @@ export default function CheakoutPage() {
                           Ship to a different address
                         </label>
                       </div>
-                    </div>
+                    </div> */}
                   </form>
                 </div>
               </div>
@@ -193,66 +290,39 @@ export default function CheakoutPage() {
                   </div>
                   <div className="product-list w-full mb-[30px]">
                     <ul className="flex flex-col space-y-5">
-                      <li>
-                        <div className="flex justify-between items-center">
-                          <div>
-                            <h4 className="text-[15px] text-qblack mb-2.5">
-                              Apple Watch
-                              <sup className="text-[13px] text-qgray ml-2 mt-2">
-                                x1
-                              </sup>
-                            </h4>
-                            <p className="text-[13px] text-qgray">
-                              64GB, Black, 44mm, Chain Belt
-                            </p>
-                          </div>
-                          <div>
-                            <span className="text-[15px] text-qblack font-medium">
-                              $38
-                            </span>
-                          </div>
-                        </div>
-                      </li>
-                      <li>
-                        <div className="flex justify-between items-center">
-                          <div>
-                            <h4 className="text-[15px] text-qblack mb-2.5">
-                              Apple Watch
-                              <sup className="text-[13px] text-qgray ml-2 mt-2">
-                                x1
-                              </sup>
-                            </h4>
-                            <p className="text-[13px] text-qgray">
-                              64GB, Black, 44mm, Chain Belt
-                            </p>
-                          </div>
-                          <div>
-                            <span className="text-[15px] text-qblack font-medium">
-                              $38
-                            </span>
-                          </div>
-                        </div>
-                      </li>
-                      <li>
-                        <div className="flex justify-between items-center">
-                          <div>
-                            <h4 className="text-[15px] text-qblack mb-2.5">
-                              Apple Watch
-                              <sup className="text-[13px] text-qgray ml-2 mt-2">
-                                x1
-                              </sup>
-                            </h4>
-                            <p className="text-[13px] text-qgray">
-                              64GB, Black, 44mm, Chain Belt
-                            </p>
-                          </div>
-                          <div>
-                            <span className="text-[15px] text-qblack font-medium">
-                              $38
-                            </span>
-                          </div>
-                        </div>
-                      </li>
+                      {cart.map((cart) => {
+                        return (
+                          <li>
+                            <div className="flex justify-between items-center">
+                              <div>
+                                <h4 className="text-[15px] text-qblack mb-2.5">
+                                  {cart.productName}
+                                  <sup className="text-[13px] text-qgray ml-2 mt-2">
+                                    x{cart.quantity}
+                                  </sup>
+                                </h4>
+                                <p className="text-[13px] text-qgray">
+                                  {Object.entries(JSON.parse(cart.attributes))
+                                    .reduce<any[]>((prev, cur) => {
+                                      if (
+                                        (cur[1] as any).toLowerCase() !== 'yes'
+                                      )
+                                        prev.push(cur[1] as any);
+                                      return prev;
+                                    }, [])
+                                    .join(', ')
+                                    .substring(0, 29) + '...'}
+                                </p>
+                              </div>
+                              <div>
+                                <span className="text-[15px] text-qblack font-medium">
+                                  ₦ {cart.price}
+                                </span>
+                              </div>
+                            </div>
+                          </li>
+                        );
+                      })}
                     </ul>
                   </div>
                   <div className="w-full h-[1px] bg-[#EDEDED]"></div>
@@ -263,7 +333,7 @@ export default function CheakoutPage() {
                         SUBTOTAL
                       </p>
                       <p className="text-[15px] font-medium text-qblack uppercase">
-                        $365
+                        ₦ {cart.reduce((prev, cur) => prev + cur.price, 0)}
                       </p>
                     </div>
                   </div>
@@ -280,7 +350,7 @@ export default function CheakoutPage() {
                           </p>
                         </div>
                         <p className="text-[15px] font-medium text-qblack">
-                          +$0
+                          +₦0
                         </p>
                       </div>
                       <div className="w-full h-[1px] bg-[#EDEDED]"></div>
@@ -290,10 +360,12 @@ export default function CheakoutPage() {
                   <div className="mt-[30px]">
                     <div className=" flex justify-between mb-5">
                       <p className="text-2xl font-medium text-qblack">Total</p>
-                      <p className="text-2xl font-medium text-qred">$365</p>
+                      <p className="text-2xl font-medium text-qred">
+                        ₦ {cart.reduce((prev, cur) => prev + cur.price, 0)}
+                      </p>
                     </div>
                   </div>
-                  <div className="shipping mt-[30px]">
+                  {/* <div className="shipping mt-[30px]">
                     <ul className="flex flex-col space-y-1">
                       <li className=" mb-5">
                         <div className="flex space-x-2.5 items-center mb-4">
@@ -354,14 +426,92 @@ export default function CheakoutPage() {
                         </div>
                       </li>
                     </ul>
-                  </div>
-                  <a href="#">
-                    <div className="w-full h-[50px] black-btn flex justify-center items-center">
-                      <span className="text-sm font-semibold">
-                        Place Order Now
-                      </span>
-                    </div>
-                  </a>
+                  </div> */}
+                  {user && !hasValidationError && displayButton && (
+                    <>
+                      <PaystackButton
+                        className="w-full h-[50px] black-btn flex justify-center items-center"
+                        email={user.email}
+                        amount={
+                          cart.reduce((prev, cur) => prev + cur.price, 0) * 100
+                        }
+                        metadata={{
+                          custom_fields: [
+                            {
+                              display_name: 'Firstname',
+                              variable_name: 'firstname',
+                              value: user.firstname,
+                            },
+                            {
+                              display_name: 'Lastname',
+                              variable_name: 'lastname',
+                              value: user.lastname,
+                            },
+                            {
+                              display_name: 'Phone',
+                              variable_name: 'phone',
+                              value: user.phone,
+                            },
+                          ],
+                        }}
+                        publicKey={
+                          process.env.REACT_APP_PAYSTACK_PUBLIC_KEY as any
+                        }
+                        text="Place Order Now"
+                        onSuccess={(response) => {
+                          setDisplayButton(false);
+                          const reference = response.reference;
+                          fetch(`${baseUrl}/orders/verify/${reference}`, {
+                            method: 'POST',
+                            headers: {
+                              'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({
+                              amount: cart.reduce(
+                                (prev, cur) => prev + cur.price,
+                                0,
+                              ),
+                              discount: 0,
+                              details: {
+                                user: {
+                                  firstname: user.firstname,
+                                  lastname: user.lastname,
+                                  email: user.email,
+                                  phone: user.phone,
+                                  address: user.address,
+                                },
+                                products: cart,
+                                shipping: {
+                                  type: 'Free Shipping',
+                                  cost: 0,
+                                },
+                              },
+                            }),
+                          })
+                            .then((response) => response.json())
+                            .then((response) => {
+                              if (response.id) {
+                                setCart([]);
+                                localStorage.removeItem(
+                                  LOCAL_STORAGE_KEYS.CART,
+                                );
+                                alert(
+                                  'Order request submitted successfully. Status updates will be sent to your email. Thanks for shopping at Sonik360',
+                                );
+                                location.href = '/profile#order';
+                              }
+                            });
+                          // send this reference to backend for verification
+                        }}
+                        onClose={(response) => {
+                          console.log('Paystack order closed', response);
+                        }}
+                      />
+                      {/* <span className="text-sm font-semibold">
+                      Place Order Now
+                    </span> */}
+                    </>
+                  )}
                 </div>
               </div>
             </div>
@@ -370,4 +520,6 @@ export default function CheakoutPage() {
       </div>
     </Layout>
   );
-}
+};
+
+export default withLoginContext(CheckoutPage, '/checkout');

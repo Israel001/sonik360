@@ -145,7 +145,6 @@ export default function WishlistTab({ className }: IWishlistTab) {
           </div>
         </div>
       </div>
-      <ToastContainer />
     </>
   );
 }

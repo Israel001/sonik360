@@ -27,7 +27,7 @@ export default function HomeThree() {
         />
         <SectionStyleThree
           type={3}
-          products={products}
+          products={[]}
           sectionTitle="New Arrivals"
           seeMoreUrl="/all-products"
           className="new-products mb-[60px]"
@@ -54,7 +54,7 @@ export default function HomeThree() {
         >
           <SectionStyleTwo
             type={3}
-            products={products.slice(3, products.length)}
+            products={[]}
           />
         </ViewMoreTitle>
 

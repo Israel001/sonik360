@@ -1,31 +1,69 @@
-import { useEffect, useState } from "react";
-import datas from "../../data/products.json";
-import SectionStyleFour from "../Helpers/SectionStyleFour";
-import SectionStyleOne from "../Helpers/SectionStyleOne";
-import SectionStyleThree from "../Helpers/SectionStyleThree";
-import SectionStyleTwo from "../Helpers/SectionStyleTwo";
-import ViewMoreTitle from "../Helpers/ViewMoreTitle";
-import Layout from "../Partials/Layout";
-import Ads from "./Ads";
-import Banner from "./Banner";
-import BestSellers from "./BestSellers";
-import BrandSection from "./BrandSection";
-import CampaignCountDown from "./CampaignCountDown";
-import ProductsAds from "./ProductsAds";
+import { useEffect, useState } from 'react';
+import datas from '../../data/products.json';
+import SectionStyleFour from '../Helpers/SectionStyleFour';
+import SectionStyleOne from '../Helpers/SectionStyleOne';
+import SectionStyleThree from '../Helpers/SectionStyleThree';
+import SectionStyleTwo from '../Helpers/SectionStyleTwo';
+import ViewMoreTitle from '../Helpers/ViewMoreTitle';
+import Layout from '../Partials/Layout';
+import Ads from './Ads';
+import Banner from './Banner';
+import BestSellers from './BestSellers';
+import BrandSection from './BrandSection';
+import CampaignCountDown from './CampaignCountDown';
+import ProductsAds from './ProductsAds';
+import { useAppContext } from '../../context/appcontext';
+import { IProduct } from '../Helpers/SearchBox';
+
+const baseUrl = process.env.REACT_APP_SERVER_URL;
 
 export default function Home() {
-  const { products } = datas;
-  const brands: any[] = [];
-  products.forEach((product) => {
-    brands.push(product.brand);
-  });
   const [ads, setAds] = useState(false);
+  const [gadgetProducts, setGadgetProducts] = useState<IProduct[]>([]);
+  const [electronicsProducts, setElectronicsProducts] = useState<IProduct[]>(
+    [],
+  );
+  const [newArrivals, setNewArrivals] = useState<IProduct[]>([]);
+  const [topSellingProducts, setTopSellingProducts] = useState<IProduct[]>([]);
   const adsHandle = () => {
     setAds(false);
   };
   useEffect(() => {
     setAds(true);
   }, []);
+
+  const { subCategories } = useAppContext();
+
+  const fetchSomeProducts = async (products: string, stateSetter: Function) => {
+    const response = await fetch(
+      `${baseUrl}/products/some-products?names=${products}`,
+    ).then((response) => response.json());
+    stateSetter(response);
+  };
+
+  const fetchSpecialCategoryProducts = async (
+    name: string,
+    stateSetter: Function,
+  ) => {
+    const response = await fetch(
+      `${baseUrl}/products/special-categories/${name}`,
+    ).then((response) => response.json());
+    stateSetter(response);
+  };
+
+  useEffect(() => {
+    fetchSomeProducts(
+      ['Iphone 14 Pro Max', 'JBL Flip 5', 'HP Elitebook 1030 G2'].join(','),
+      setGadgetProducts,
+    );
+    fetchSomeProducts(
+      ['Hisense', 'Maxi 1', 'Maxi'].join(','),
+      setElectronicsProducts,
+    );
+    fetchSpecialCategoryProducts('New Arrivals', setNewArrivals);
+    fetchSpecialCategoryProducts('Top Selling Products', setTopSellingProducts);
+  }, []);
+
   return (
     <>
       <Layout>
@@ -33,11 +71,14 @@ export default function Home() {
         <div className="btn w-5 h-5 "></div>
         <Banner className="banner-wrapper mb-[60px]" />
         <SectionStyleOne
-          products={products}
-          brands={brands}
-          categoryTitle="Mobile & Tablet"
-          sectionTitle="Gamer World"
-          seeMoreUrl="/all-products"
+          products={gadgetProducts}
+          brands={[]}
+          subCategories={subCategories.filter(
+            (sc) => sc.__mainCategory__!.name.toLowerCase() === 'gadgets',
+          )}
+          categoryTitle="AY WILL THINK ABOUT IT"
+          sectionTitle="Gadgets World"
+          seeMoreUrl={`/products?filter[category]=Gadgets`}
           className="category-products mb-[60px]"
         />
         <BrandSection
@@ -50,18 +91,18 @@ export default function Home() {
         />
         <ViewMoreTitle
           className="top-selling-product mb-[60px]"
-          seeMoreUrl="/all-products"
+          seeMoreUrl="/products?filter[specialCategory]=Top Selling Products"
           categoryTitle="Top Selling Products"
         >
-          <SectionStyleTwo products={products.slice(3, products.length)} />
+          <SectionStyleTwo products={topSellingProducts} />
         </ViewMoreTitle>
-        <ViewMoreTitle
+        {/* <ViewMoreTitle
           className="best-sallers-section mb-[60px]"
           seeMoreUrl="/sallers"
           categoryTitle="Best Saller"
         >
           <BestSellers />
-        </ViewMoreTitle>
+        </ViewMoreTitle> */}
         <ProductsAds
           ads={[
             `${process.env.PUBLIC_URL}/assets/images/ads-1.png`,
@@ -72,11 +113,14 @@ export default function Home() {
         />
         <SectionStyleOne
           categoryBackground={`${process.env.PUBLIC_URL}/assets/images/section-category-2.jpg`}
-          products={products.slice(4, products.length)}
-          brands={brands}
+          subCategories={subCategories.filter(
+            (sc) => sc.__mainCategory__!.name.toLowerCase() === 'electronics',
+          )}
+          products={electronicsProducts}
+          brands={[]}
           categoryTitle="Electronics"
-          sectionTitle="Popular Sales"
-          seeMoreUrl="/all-products"
+          sectionTitle="Electronics World"
+          seeMoreUrl={`/products?filter[category]=Electronics`}
           className="category-products mb-[60px]"
         />
         <ProductsAds
@@ -84,9 +128,9 @@ export default function Home() {
           className="products-ads-section mb-[60px]"
         />
         <SectionStyleThree
-          products={products}
+          products={newArrivals}
           sectionTitle="New Arrivals"
-          seeMoreUrl="/all-products"
+          seeMoreUrl="/products?filter[specialCategory]=New Arrivals"
           className="new-products mb-[60px]"
         />
         <ProductsAds
@@ -94,12 +138,12 @@ export default function Home() {
           ads={[`${process.env.PUBLIC_URL}/assets/images/ads-4.png`]}
           className="products-ads-section mb-[60px]"
         />
-        <SectionStyleFour
-          products={products}
+        {/* <SectionStyleFour
+          products={gadgetProducts}
           sectionTitle="Popular Sales"
           seeMoreUrl="/all-products"
           className="category-products mb-[60px]"
-        />
+        /> */}
       </Layout>
     </>
   );

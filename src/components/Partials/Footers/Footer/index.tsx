@@ -56,14 +56,14 @@ export default function Footer({ type }: { [x: string]: any }) {
                   <li>
                     <a href="/terms-condition">
                       <span className="text-[#9A9A9A] text-[15px] hover:text-qblack border-b border-transparent hover:border-qblack cursor-pointer capitalize">
-                        Terms Condition
+                        Terms and Condition
                       </span>
                     </a>
                   </li>
                   <li>
-                    <a href="/all-products">
+                    <a href="/products">
                       <span className="text-[#9A9A9A] text-[15px] hover:text-qblack border-b border-transparent hover:border-qblack cursor-pointer capitalize">
-                        Best Products
+                        All Products
                       </span>
                     </a>
                   </li>
@@ -94,9 +94,9 @@ export default function Footer({ type }: { [x: string]: any }) {
                       </a>
                     </li>
                     <li>
-                      <a href="/become-saller">
+                      <a href="/products-compaire">
                         <span className="text-[#9A9A9A] text-[15px] hover:text-qblack border-b border-transparent hover:border-qblack cursor-pointer capitalize">
-                          Become Seller
+                          Compare Products
                         </span>
                       </a>
                     </li>
@@ -126,9 +126,9 @@ export default function Footer({ type }: { [x: string]: any }) {
                       </a>
                     </li>
                     <li>
-                      <a href="/about">
+                      <a href="/contact">
                         <span className="text-[#9A9A9A] text-[15px] hover:text-qblack border-b border-transparent hover:border-qblack cursor-pointer capitalize">
-                          Support
+                          Contact Us
                         </span>
                       </a>
                     </li>
@@ -152,14 +152,14 @@ export default function Footer({ type }: { [x: string]: any }) {
               </a>
             </div>
             <span className="sm:text-base text-[10px] text-qgray font-300">
-              ©2022
+              {`©${new Date().getFullYear()}`}
               <a
-                href="https://quomodosoft.com/"
+                // href="https://quomodosoft.com/"
                 target="_blank"
                 rel="noreferrer"
                 className="font-500 text-qblack mx-1"
               >
-                Quomodosoft
+                Sonik360
               </a>
               All rights reserved
             </span>

@@ -85,7 +85,6 @@ const Wishlist = () => {
           </div>
         </div>
       )}
-      <ToastContainer />
     </Layout>
   );
 }

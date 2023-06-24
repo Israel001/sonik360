@@ -372,7 +372,6 @@ export default function PasswordTab() {
           <PasswordSvg />
         </div>
       </div>
-      <ToastContainer />
     </div>
   );
 }

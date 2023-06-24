@@ -47,7 +47,7 @@ export default function CartPage() {
                   </button>
                 </div>
                 <div className="flex space-x-2.5 items-center">
-                  <a href="#">
+                  <a href="/">
                     <div className="w-[220px] h-[50px] bg-[#F6F6F6] flex justify-center items-center">
                       <span className="text-sm font-semibold">
                         Continue Shopping

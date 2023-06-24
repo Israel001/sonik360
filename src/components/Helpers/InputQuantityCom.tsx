@@ -1,21 +1,26 @@
+import { toast } from 'react-toastify';
 import { ICart } from '../../context/appcontext';
 
 export default function InputQuantityCom({
   data,
   setData,
   index,
-  dataType
+  dataType,
 }: {
-    data: ICart[];
-    setData: (v: ICart[]) => void;
-    index: number;
-    dataType: string;
+  data: ICart[];
+  setData: (v: ICart[]) => void;
+  index: number;
+  dataType: string;
 }) {
   const increment = () => {
     const clonedData = [...data];
+    if (clonedData[index].quantity + 1 > clonedData[index].inStock) {
+      toast.error(`Only ${clonedData[index].inStock} left in stock`);
+      return;
+    }
     clonedData[index || 0].quantity += 1;
     setData(clonedData);
-    localStorage.setItem(dataType, JSON.stringify(clonedData))
+    localStorage.setItem(dataType, JSON.stringify(clonedData));
   };
 
   const decrement = () => {
@@ -23,7 +28,7 @@ export default function InputQuantityCom({
       const clonedData = [...data];
       clonedData[index || 0].quantity -= 1;
       setData(clonedData);
-      localStorage.setItem(dataType, JSON.stringify(clonedData))
+      localStorage.setItem(dataType, JSON.stringify(clonedData));
     }
   };
 

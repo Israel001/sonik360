@@ -1,10 +1,18 @@
+import { ICategory } from '../../AllProductPage/ProductsFilter';
+
 export interface ICategoryCard {
   background?: string;
   title?: string;
-  brands?: any[];
+  subCategories?: ICategory[];
+  seeMoreUrl?: string;
 }
 
-export default function CategoryCard({ background, title, brands = [] }: ICategoryCard) {
+export default function CategoryCard({
+  background,
+  title,
+  subCategories = [],
+  seeMoreUrl,
+}: ICategoryCard) {
   return (
     <div
       className="category-card-wrappwer w-full h-full p-[30px]"
@@ -13,27 +21,29 @@ export default function CategoryCard({ background, title, brands = [] }: ICatego
           background ||
           `${process.env.PUBLIC_URL}/assets/images/section-category-1.jpg`
         }) no-repeat`,
-        backgroundSize: "cover",
+        backgroundSize: 'cover',
       }}
     >
       <div>
         <h1 className="text-base font-600 tracking-wide mb-2">{title}</h1>
         <div className="brands-list mb-[7px]">
           <ul>
-            {brands.map((brand) => (
-              <li key={brand + Math.random()}>
-                <a href="/all-products">
-                  <span className="text-sm text-qgray hober:text-qBlack border-b border-transparent hover:border-qblack hover:text-qblack capitalize">
-                    {brand}
-                  </span>
-                </a>
-              </li>
-            ))}
+            {subCategories.slice(0, 6).map((sc, i) => {
+              return (
+                <li key={i}>
+                  <a href={`/products?filter[subCategory]=${sc.name}`}>
+                    <span className="text-sm text-qgray hober:text-qBlack border-b border-transparent hover:border-qblack hover:text-qblack capitalize">
+                      {sc.name}
+                    </span>
+                  </a>
+                </li>
+              );
+            })}
           </ul>
         </div>
-        <a href="#">
+        <a href={seeMoreUrl}>
           <div className="flex space-x-2 items-center">
-            <span className="text-qblack font-600 text-sm">Shop Now</span>
+            <h1 className="text-base font-600 tracking-wide mb-2">Shop Now</h1>
             <span>
               <svg
                 width="7"

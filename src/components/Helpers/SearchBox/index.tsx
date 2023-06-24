@@ -20,6 +20,7 @@ export interface IProduct {
   type: string;
   reviews: string;
   shortDescription: string;
+  slug: string;
   __category__: { id: number; name: string };
 }
 
@@ -90,6 +91,7 @@ export default function SearchBox({ className }: ISearchBox) {
             {dropdownData.map((data, i) => {
               if (i < 5) {
                 return (
+                  <a href={`/products/${data.slug}`}>
                   <div
                     style={{
                       display: 'flex',
@@ -112,7 +114,8 @@ export default function SearchBox({ className }: ISearchBox) {
                     >
                       {data.name}
                     </span>
-                  </div>
+                    </div>
+                    </a>
                 );
               }
             })}

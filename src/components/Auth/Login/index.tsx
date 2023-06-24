@@ -1,48 +1,51 @@
-import { useField, useForm } from "@shopify/react-form";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useAppContext } from "../../../context/appcontext";
-import preventPage from "../../../hoc/preventPage";
-import { login } from "../../../utils/util";
-import InputCom from "../../Helpers/InputCom";
-import Layout from "../../Partials/Layout";
-import Thumbnail from "./Thumbnail";
+import { useField, useForm } from '@shopify/react-form';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAppContext } from '../../../context/appcontext';
+import preventPage from '../../../hoc/preventPage';
+import { login } from '../../../utils/util';
+import InputCom from '../../Helpers/InputCom';
+import Layout from '../../Partials/Layout';
+import Thumbnail from './Thumbnail';
+import qs from 'query-string';
 
 const Login = () => {
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
   const [checked, setValue] = useState(false);
   const rememberMe = () => {
     setValue(!checked);
   };
-  const { setIsLoggedIn } = useAppContext();
+  const { setIsLoggedIn, setUser } = useAppContext();
 
   const { fields, submit, dirty, submitting } = useForm({
     fields: {
       email: useField({
-        value: "",
+        value: '',
         validates: (value) => {
-          if (!value) return "Email is required"
-          if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) return "Email should be a valid email address"
-        }
+          if (!value) return 'Email is required';
+          if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value))
+            return 'Email should be a valid email address';
+        },
       }),
       password: useField({
-        value: "",
+        value: '',
         validates: (value) => {
-          if (!value) return "Password is required"
-          if (value.length < 6) return "Password is too short"
-          if (value.length > 50) return "Password is too long"
-        }
+          if (!value) return 'Password is required';
+          if (value.length < 6) return 'Password is too short';
+          if (value.length > 50) return 'Password is too long';
+        },
       }),
     },
     onSubmit: async (fieldValues) => {
-      const result = await login(fieldValues.email, fieldValues.password);
+      const result = await login(fieldValues.email, fieldValues.password, setUser);
+      const parsed = qs.parse(location.search);
       if (result) {
         setIsLoggedIn(true);
-        navigate('/');
+        navigate((parsed['redirectTo'] as any) || '/');
       }
       return { status: 'success' };
-    }
-  })
+    },
+  });
 
   const hasValidationError = Object.entries(fields).some(([_k, v]) => {
     return !v.touched || (v.touched && v.error);
@@ -84,7 +87,11 @@ const Login = () => {
                       inputClasses="h-[50px]"
                       inputAttr={fields.email}
                     >
-                      {fields.email.error && <span style={{ color: 'red' }}>{fields.email.error}</span>}
+                      {fields.email.error && (
+                        <span style={{ color: 'red' }}>
+                          {fields.email.error}
+                        </span>
+                      )}
                     </InputCom>
                   </div>
                   <div className="input-item mb-5">
@@ -96,7 +103,11 @@ const Login = () => {
                       inputClasses="h-[50px]"
                       inputAttr={fields.password}
                     >
-                      {fields.password.error && <span style={{ color: 'red' }}>{fields.password.error}</span>}
+                      {fields.password.error && (
+                        <span style={{ color: 'red' }}>
+                          {fields.password.error}
+                        </span>
+                      )}
                     </InputCom>
                   </div>
                   <div className="forgot-password-area flex justify-between items-center mb-7">
@@ -141,7 +152,11 @@ const Login = () => {
                       <button
                         type="button"
                         className="black-btn mb-6 text-sm text-white w-full h-[50px] font-semibold flex justify-center bg-purple items-center"
-                        style={hasValidationError || !dirty || submitting ? { opacity: '.5' } : {}}
+                        style={
+                          hasValidationError || !dirty || submitting
+                            ? { opacity: '.5' }
+                            : {}
+                        }
                         disabled={hasValidationError || !dirty || submitting}
                         onClick={submit}
                       >
@@ -216,7 +231,7 @@ const Login = () => {
             <div className="flex-1 lg:flex hidden transform scale-60 xl:scale-100   xl:justify-center ">
               <div
                 className="absolute xl:-right-20 -right-[138px]"
-                style={{ top: "calc(50% - 258px)" }}
+                style={{ top: 'calc(50% - 258px)' }}
               >
                 <Thumbnail />
               </div>
@@ -226,6 +241,6 @@ const Login = () => {
       </div>
     </Layout>
   );
-}
+};
 
 export default preventPage(Login);

@@ -13,6 +13,7 @@ export interface ICategory {
   id: number;
   name: string;
   __mainCategory__?: { id: number; name: string; }
+  brands?: string;
 }
 
 export default function ProductsFilter({

@@ -32,21 +32,26 @@ export default function ProductsTable({ className }: IProductsTable) {
                     <div className="flex space-x-6 items-center">
                       <div className="w-[80px] h-[80px] overflow-hidden flex justify-center items-center border border-[#EDEDED]">
                         <img
-                          src={`${process.env.PUBLIC_URL}/${c.image}`}
+                          src={c.image}
                           alt="product"
                           className="w-full h-full object-contain"
                         />
                       </div>
-                      <div className="flex-1 flex flex-col">
-                        <p className="font-medium text-[15px] text-qblack">
-                          {c.productName}
-                        </p>
-                      </div>
+                      <a href={`/products/${c.id}`}>
+                        <div className="flex-1 flex flex-col">
+                          <p className="font-medium text-[15px] text-qblack">
+                            {c.productName}
+                          </p>
+                        </div>
+                      </a>
                     </div>
                   </td>
                   <td className="text-center py-4 px-2">
                     <div className=" flex justify-center items-center">
-                      <span className="w-[20px] h-[20px] bg-[#E4BC87] block rounded-full"></span>
+                      <span
+                        className="w-[20px] h-[20px] block rounded-full"
+                        style={{ background: `${c.color}` }}
+                      ></span>
                     </div>
                   </td>
                   <td className="text-center py-4 px-2">
@@ -62,7 +67,7 @@ export default function ProductsTable({ className }: IProductsTable) {
                         data={cart}
                         setData={setCart}
                         index={index}
-                        dataType="wishlist"
+                        dataType="cart"
                       />
                     </div>
                   </td>

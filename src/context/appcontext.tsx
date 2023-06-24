@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react';
+import { ICategory } from '../components/AllProductPage/ProductsFilter';
 
 export interface IAppContext {
   isLoggedIn: boolean;
@@ -9,6 +10,8 @@ export interface IAppContext {
   setWishlist: (v: any[]) => void;
   user: IUser | undefined;
   setUser: (v: IUser | undefined) => void;
+  categories: ICategory[];
+  subCategories: ICategory[];
 }
 
 export interface IUser {
@@ -26,8 +29,9 @@ export interface ICart {
   price: number;
   quantity: number;
   color: string;
-  id: number;
-  inStock?: number;
+  id: string;
+  inStock: number;
+  attributes: any;
 }
 
 export enum LOCAL_STORAGE_KEYS {
@@ -40,11 +44,29 @@ export enum LOCAL_STORAGE_KEYS {
 
 const AppContext = createContext<IAppContext>({} as any);
 
+const baseUrl = process.env.REACT_APP_SERVER_URL;
+
 const ContextProvider = ({ children }: { children: React.ReactNode }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [cart, setCart] = useState<ICart[]>([]);
   const [wishlist, setWishlist] = useState<ICart[]>([]);
   const [user, setUser] = useState<IUser>();
+  const [categories, setCategories] = useState<ICategory[]>([]);
+  const [subCategories, setSubCategories] = useState<ICategory[]>([]);
+
+  const fetchCategories = async () => {
+    const response = await fetch(`${baseUrl}/categories/main-categories`).then(
+      (response) => response.json(),
+    );
+    setCategories(response);
+  };
+
+  const fetchSubCategories = async () => {
+    const response = await fetch(`${baseUrl}/categories/sub-categories`).then(
+      (response) => response.json(),
+    );
+    setSubCategories(response);
+  };
 
   useEffect(() => {
     const accessToken = localStorage.getItem(LOCAL_STORAGE_KEYS.ACCESS_TOKEN);
@@ -60,11 +82,15 @@ const ContextProvider = ({ children }: { children: React.ReactNode }) => {
       localStorage.getItem(LOCAL_STORAGE_KEYS.LAST_LOGGED_IN)!,
     );
     if (new Date().getTime() - lastLoggedIn > 3000000) {
+      // make a request to refresh the token
       localStorage.removeItem(LOCAL_STORAGE_KEYS.ACCESS_TOKEN);
       localStorage.removeItem(LOCAL_STORAGE_KEYS.USER);
       localStorage.removeItem(LOCAL_STORAGE_KEYS.LAST_LOGGED_IN);
       setIsLoggedIn(false);
     }
+
+    fetchCategories();
+    fetchSubCategories();
   }, []);
 
   return (
@@ -78,6 +104,8 @@ const ContextProvider = ({ children }: { children: React.ReactNode }) => {
         setWishlist,
         user,
         setUser,
+        categories,
+        subCategories,
       }}
     >
       {children}

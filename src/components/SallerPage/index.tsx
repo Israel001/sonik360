@@ -137,7 +137,7 @@ export default function SallerPage() {
               </div>
 
               <div className="saller-name lg:block hidden">
-                <h1 className="text-[60px] font-bold">Quomodosoft</h1>
+                <h1 className="text-[60px] font-bold">Sonik360</h1>
                 <div className="flex justify-center">
                   <div className="flex">
                     <Star w="30" h="30" />
@@ -162,7 +162,7 @@ export default function SallerPage() {
                 </div>
                 <div className="flex sm:justify-center justify-start">
                   <span className="text-[30px] font-medium text-center">
-                    Quomodosoft
+                    Sonik360
                   </span>
                 </div>
               </div>

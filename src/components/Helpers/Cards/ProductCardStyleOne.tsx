@@ -1,12 +1,14 @@
-import { toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
 import { LOCAL_STORAGE_KEYS, useAppContext } from '../../../context/appcontext';
 import Compair from '../icons/Compair';
 import Heart from '../icons/Heart';
 import QuickViewIco from '../icons/QuickViewIco';
 import ThinLove from '../icons/ThinLove';
+import { IProduct } from '../SearchBox';
 
 export interface IProductCardStyleOne {
   [x: string]: any;
+  datas: IProduct;
 }
 
 const baseUrl = process.env.REACT_APP_SERVER_URL;
@@ -19,13 +21,13 @@ export default function ProductCardStyleOne({ datas }: IProductCardStyleOne) {
       className="product-card-one w-full h-full bg-white relative group overflow-hidden"
       style={{ boxShadow: '0px 15px 64px 0px rgba(0, 0, 0, 0.05)' }}
       onClick={(event) => {
-        location.href = `/products/${datas.slug}`
+        location.href = `/products/${datas.slug}`;
       }}
     >
       <div
         className="product-card-img w-full h-[300px]"
         style={{
-          background: `url(${baseUrl}/${datas.image})`,
+          background: `url(${baseUrl}/${datas.image.split(',')[0]})`,
           backgroundSize: 'contain',
           backgroundRepeat: 'no-repeat',
           backgroundPosition: 'center',
@@ -76,17 +78,31 @@ export default function ProductCardStyleOne({ datas }: IProductCardStyleOne) {
             onClick={(event) => {
               event.stopPropagation();
               const clonedCart = [...cart];
-              const itemInCart = clonedCart.find((c) => c.id === 1);
+              const itemInCart = clonedCart.find((c) => c.id === datas.slug);
               if (itemInCart) {
+                if (itemInCart.quantity + 1 > datas.availability) {
+                  toast.error(
+                    `Only ${
+                      datas.availability - itemInCart.quantity
+                    } left in stock`,
+                  );
+                  return;
+                }
                 itemInCart.quantity += 1;
               } else {
+                if (!datas.availability) {
+                  toast.error(`Item is out of stock`);
+                  return;
+                }
                 clonedCart.push({
-                  image: `${process.env.PUBLIC_URL}/assets/images/product-img-1.jpg`,
-                  productName: 'xoggle',
-                  price: 27,
+                  image: `${baseUrl}/${datas.image.split(',')[0]}`,
+                  productName: datas.name,
+                  price: datas.price,
                   quantity: 1,
-                  color: '',
-                  id: 1,
+                  color: datas.colors.split(',')[0],
+                  id: datas.slug,
+                  inStock: datas.availability,
+                  attributes: datas.attributes
                 });
               }
               setCart(clonedCart);
@@ -123,11 +139,9 @@ export default function ProductCardStyleOne({ datas }: IProductCardStyleOne) {
             </span>
           ))}
         </div> */}
-        <a href="/single-product">
-          <p className="title mb-2 text-[15px] font-600 text-qblack leading-[24px] line-clamp-2 hover:text-blue-600">
-            {datas.name}
-          </p>
-        </a>
+        <p className="title mb-2 text-[15px] font-600 text-qblack leading-[24px] line-clamp-2 hover:text-blue-600">
+          {datas.name}
+        </p>
         <p className="price">
           <span className="main-price font-600 text-[18px]">
             ₦ {datas.price}
@@ -139,7 +153,7 @@ export default function ProductCardStyleOne({ datas }: IProductCardStyleOne) {
       </div>
       {/* quick-access-btns */}
       <div className="quick-access-btns flex flex-col space-y-2 absolute group-hover:right-4 -right-10 top-20  transition-all duration-300 ease-in-out">
-        <a href="#">
+        <a>
           <span className="w-10 h-10 flex justify-center items-center bg-primarygray rounded">
             <QuickViewIco />
           </span>
@@ -181,13 +195,12 @@ export default function ProductCardStyleOne({ datas }: IProductCardStyleOne) {
             </span>
           </a>
         )}
-        <a href="#">
+        <a>
           <span className="w-10 h-10 flex justify-center items-center bg-primarygray rounded">
             <Compair />
           </span>
         </a>
       </div>
-      <ToastContainer />
     </div>
   );
 }
