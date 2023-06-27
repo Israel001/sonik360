@@ -73,9 +73,13 @@ export default function Home() {
         <SectionStyleOne
           products={gadgetProducts}
           brands={[]}
-          subCategories={subCategories.filter(
-            (sc) => sc.__mainCategory__!.name.toLowerCase() === 'gadgets',
-          )}
+          subCategories={
+            subCategories && subCategories.length
+              ? subCategories.filter(
+                  (sc) => sc.__mainCategory__!.name.toLowerCase() === 'gadgets',
+                )
+              : []
+          }
           categoryTitle="AY WILL THINK ABOUT IT"
           sectionTitle="Gadgets World"
           seeMoreUrl={`/products?filter[category]=Gadgets`}
@@ -113,9 +117,14 @@ export default function Home() {
         />
         <SectionStyleOne
           categoryBackground={`${process.env.PUBLIC_URL}/assets/images/section-category-2.jpg`}
-          subCategories={subCategories.filter(
-            (sc) => sc.__mainCategory__!.name.toLowerCase() === 'electronics',
-          )}
+          subCategories={
+            subCategories && subCategories.length
+              ? subCategories.filter(
+                  (sc) =>
+                    sc.__mainCategory__!.name.toLowerCase() === 'electronics',
+                )
+              : []
+          }
           products={electronicsProducts}
           brands={[]}
           categoryTitle="Electronics"

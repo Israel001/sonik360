@@ -34,23 +34,25 @@ export default function BrandSection({
           </div>
         </div>
         <div className="grid lg:grid-cols-6 sm:grid-cols-4 grid-cols-2">
-          {brands?.map((brand) => {
-            return (
-              <a href={`/products?filter[brand]=${brand}`}>
-                <div className="item">
-                  <div className="w-full h-[130px] bg-white border border-primarygray flex justify-center items-center">
-                    <img
-                      style={{ maxHeight: '100%' }}
-                      src={`${
-                        process.env.PUBLIC_URL
-                      }/assets/images/${brand.toLowerCase()}.png`}
-                      alt="logo"
-                    />
-                  </div>
-                </div>
-              </a>
-            );
-          })}
+          {brands && brands.length
+            ? brands.map((brand) => {
+                return (
+                  <a href={`/products?filter[brand]=${brand}`}>
+                    <div className="item">
+                      <div className="w-full h-[130px] bg-white border border-primarygray flex justify-center items-center">
+                        <img
+                          style={{ maxHeight: '100%' }}
+                          src={`${
+                            process.env.PUBLIC_URL
+                          }/assets/images/${brand.toLowerCase()}.png`}
+                          alt="logo"
+                        />
+                      </div>
+                    </div>
+                  </a>
+                );
+              })
+            : []}
         </div>
       </div>
     </div>

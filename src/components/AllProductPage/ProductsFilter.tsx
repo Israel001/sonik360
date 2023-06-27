@@ -65,7 +65,7 @@ export default function ProductsFilter({
           </div>
           <div className="filter-items">
             <ul>
-              {categories.map((category) => {
+              {categories && categories.length ? categories.map((category) => {
                 return (
                   <li className="item flex justify-between items-center mb-5">
                     <div className="flex space-x-[14px] items-center">
@@ -108,7 +108,7 @@ export default function ProductsFilter({
                 </div> */}
                   </li>
                 );
-              })}
+              }) : []}
             </ul>
           </div>
         </div>

@@ -51,8 +51,27 @@ const ContextProvider = ({ children }: { children: React.ReactNode }) => {
   const [cart, setCart] = useState<ICart[]>([]);
   const [wishlist, setWishlist] = useState<ICart[]>([]);
   const [user, setUser] = useState<IUser>();
-  const [categories, setCategories] = useState<ICategory[]>([]);
-  const [subCategories, setSubCategories] = useState<ICategory[]>([]);
+  const [categories, setCategories] = useState<ICategory[]>([
+    {
+      id: 1,
+      name: 'Gadgets',
+    },
+    {
+      id: 2,
+      name: 'Electronics',
+    },
+  ]);
+  const [subCategories, setSubCategories] = useState<ICategory[]>(
+    new Array(15).fill({
+      id: 1,
+      name: 'Laptops',
+      __mainCategory__: {
+        id: 1,
+        name: 'Gadgets',
+      },
+      brands: 'Lenovo, Lenovo, Lenovo, Lenovo, Lenovo',
+    }),
+  );
 
   const fetchCategories = async () => {
     const response = await fetch(`${baseUrl}/categories/main-categories`).then(

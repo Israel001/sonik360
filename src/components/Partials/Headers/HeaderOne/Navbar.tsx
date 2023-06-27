@@ -87,126 +87,129 @@ export default function Navbar({ className, type }: INavbar) {
                   style={{ height: `${elementsSize} ` }}
                 >
                   <ul className="">
-                    {categories.map((c, i) => {
-                      return (
-                        <li className="">
-                          <a href={`/products?filter[category]=${c.name}`}>
-                            <div
-                              className={`flex justify-between  items-center px-5 h-10 bg-white  transition-all duration-300 ease-in-out cursor-pointer text-qblack ${
-                                type === 3
-                                  ? 'hover:bg-qh3-blue hover:text-white'
-                                  : 'hover:bg-blue-500'
-                              }`}
-                            >
-                              <div className="flex relative w-[270px] items-center space-x-6">
-                                <span
-                                  className={`flex items-center text-sm font-600 cursor-pointer ${
+                    {categories && categories.length
+                      ? categories.map((c, i) => {
+                          return (
+                            <li className="">
+                              <a href={`/products?filter[category]=${c.name}`}>
+                                <div
+                                  className={`flex justify-between  items-center px-5 h-10 bg-white  transition-all duration-300 ease-in-out cursor-pointer text-qblack ${
                                     type === 3
-                                      ? 'text-white'
-                                      : 'text-qblacktext'
+                                      ? 'hover:bg-qh3-blue hover:text-white'
+                                      : 'hover:bg-blue-500'
                                   }`}
                                 >
-                                  <span>
-                                    {i == 0 ? (
-                                      <GadgetsIcon />
-                                    ) : (
-                                      <ElectronicsIcon />
-                                    )}
-                                  </span>
-                                  <span className="text-xs ml-8  font-400">
-                                    {c.name}
-                                  </span>
-                                </span>
+                                  <div className="flex relative w-[270px] items-center space-x-6">
+                                    <span
+                                      className={`flex items-center text-sm font-600 cursor-pointer ${
+                                        type === 3
+                                          ? 'text-white'
+                                          : 'text-qblacktext'
+                                      }`}
+                                    >
+                                      <span>
+                                        {i == 0 ? (
+                                          <GadgetsIcon />
+                                        ) : (
+                                          <ElectronicsIcon />
+                                        )}
+                                      </span>
+                                      <span className="text-xs ml-8  font-400">
+                                        {c.name}
+                                      </span>
+                                    </span>
+                                  </div>
+                                  <div className="">
+                                    <span>
+                                      <svg
+                                        className="fill-current"
+                                        width="6"
+                                        height="9"
+                                        viewBox="0 0 6 9"
+                                        fill="none"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                      >
+                                        <rect
+                                          x="1.49805"
+                                          y="0.818359"
+                                          width="5.78538"
+                                          height="1.28564"
+                                          transform="rotate(45 1.49805 0.818359)"
+                                        />
+                                        <rect
+                                          x="5.58984"
+                                          y="4.90918"
+                                          width="5.78538"
+                                          height="1.28564"
+                                          transform="rotate(135 5.58984 4.90918)"
+                                        />
+                                      </svg>
+                                    </span>
+                                  </div>
+                                </div>
+                              </a>
+                              <div className="sub-menu w-[900px] absolute left-[17rem] top-[60px]">
+                                <div
+                                  className="mega-menu-wrapper w-full bg-white p-[30px] flex justify-between items-center"
+                                  style={{
+                                    minHeight: '295px',
+                                    boxShadow:
+                                      '0px 15px 50px 0px rgba(0, 0, 0, 0.14)',
+                                  }}
+                                >
+                                  <div className="categories-wrapper flex-1 h-full flex justify-around -ml-[70px]">
+                                    {subCategories
+                                      .filter(
+                                        (sc) =>
+                                          sc.__mainCategory__!.id === c.id,
+                                      )
+                                      .map((sc) => {
+                                        return (
+                                          <div>
+                                            <div className="category">
+                                              <h1 className="text-[13px] font-700 text-qblack uppercase mb-[13px]">
+                                                <a
+                                                  href={`/products?filter[subCategory]=${sc.name}`}
+                                                >
+                                                  {sc.name}
+                                                </a>
+                                              </h1>
+                                            </div>
+                                            <div className="category-items">
+                                              <ul className="flex flex-col space-y-2">
+                                                {sc
+                                                  .brands!.split(',')
+                                                  .map((brand) => {
+                                                    return (
+                                                      <li>
+                                                        <a
+                                                          href={`/products?filter[brand]=${brand}`}
+                                                        >
+                                                          <span
+                                                            className={`text-qgray text-sm font-400 border-b border-transparent ${
+                                                              type === 3
+                                                                ? 'hover:text-qh3-blue hover:border-qh3-blue'
+                                                                : 'hover:text-blue-500 hover:border-blue-500'
+                                                            }`}
+                                                          >
+                                                            {brand}
+                                                          </span>
+                                                        </a>
+                                                      </li>
+                                                    );
+                                                  })}
+                                              </ul>
+                                            </div>
+                                          </div>
+                                        );
+                                      })}
+                                  </div>
+                                </div>
                               </div>
-                              <div className="">
-                                <span>
-                                  <svg
-                                    className="fill-current"
-                                    width="6"
-                                    height="9"
-                                    viewBox="0 0 6 9"
-                                    fill="none"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                  >
-                                    <rect
-                                      x="1.49805"
-                                      y="0.818359"
-                                      width="5.78538"
-                                      height="1.28564"
-                                      transform="rotate(45 1.49805 0.818359)"
-                                    />
-                                    <rect
-                                      x="5.58984"
-                                      y="4.90918"
-                                      width="5.78538"
-                                      height="1.28564"
-                                      transform="rotate(135 5.58984 4.90918)"
-                                    />
-                                  </svg>
-                                </span>
-                              </div>
-                            </div>
-                          </a>
-                          <div className="sub-menu w-[900px] absolute left-[17rem] top-[60px]">
-                            <div
-                              className="mega-menu-wrapper w-full bg-white p-[30px] flex justify-between items-center"
-                              style={{
-                                minHeight: '295px',
-                                boxShadow:
-                                  '0px 15px 50px 0px rgba(0, 0, 0, 0.14)',
-                              }}
-                            >
-                              <div className="categories-wrapper flex-1 h-full flex justify-around -ml-[70px]">
-                                {subCategories
-                                  .filter(
-                                    (sc) => sc.__mainCategory__!.id === c.id,
-                                  )
-                                  .map((sc) => {
-                                    return (
-                                      <div>
-                                        <div className="category">
-                                          <h1 className="text-[13px] font-700 text-qblack uppercase mb-[13px]">
-                                            <a
-                                              href={`/products?filter[subCategory]=${sc.name}`}
-                                            >
-                                              {sc.name}
-                                            </a>
-                                          </h1>
-                                        </div>
-                                        <div className="category-items">
-                                          <ul className="flex flex-col space-y-2">
-                                            {sc
-                                              .brands!.split(',')
-                                              .map((brand) => {
-                                                return (
-                                                  <li>
-                                                    <a
-                                                      href={`/products?filter[brand]=${brand}`}
-                                                    >
-                                                      <span
-                                                        className={`text-qgray text-sm font-400 border-b border-transparent ${
-                                                          type === 3
-                                                            ? 'hover:text-qh3-blue hover:border-qh3-blue'
-                                                            : 'hover:text-blue-500 hover:border-blue-500'
-                                                        }`}
-                                                      >
-                                                        {brand}
-                                                      </span>
-                                                    </a>
-                                                  </li>
-                                                );
-                                              })}
-                                          </ul>
-                                        </div>
-                                      </div>
-                                    );
-                                  })}
-                              </div>
-                            </div>
-                          </div>
-                        </li>
-                      );
-                    })}
+                            </li>
+                          );
+                        })
+                      : []}
 
                     {/* <li className="">
                       <a href="/all-products">

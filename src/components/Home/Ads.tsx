@@ -10,10 +10,7 @@ export default function Ads({ handler }: IAds) {
           onClick={handler}
           className="w-full h-full fixed left-0 right-0 bg-black  bg-opacity-25"
         ></div>
-        <div
-          className="md:w-[812px] w-[310px] md:h-[509px] relative z-50 bg-[url('assets/images/primary-ads.png')] md:pl-10 pl-3 py-[108px] flex flex-col justify-between"
-         
-        >
+        <div className="md:w-[812px] w-[310px] md:h-[509px] relative z-50 bg-[url('assets/images/primary-ads.png')] md:pl-10 pl-3 py-[108px] flex flex-col justify-between">
           <div>
             <div className="logo mb-[20px]">
               <a href="/">

@@ -17,9 +17,9 @@ export default function SectionStyleTwo({
         className || ''
       }`}
     >
-      {products.map((product) => {
+      {products && products.length ? products.map((product) => {
         return <ProductCardRowStyleOne datas={product} />;
-      })}
+      }) : []}
       {/* <DataIteration datas={products} startLength={0} endLength={4}>
         {({ datas }) => (
           <div key={datas.id} className="item w-full">

@@ -50,9 +50,11 @@ export default function SectionStyleOne({
                 seeMoreUrl={seeMoreUrl}
               />
             </div>
-            {products.map((product) => {
-              return <ProductCardStyleOne datas={product} />;
-            })}
+            {products && products.length
+              ? products.map((product) => {
+                  return <ProductCardStyleOne datas={product} />;
+                })
+              : []}
             {/* <DataIteration
               datas={products}
               startLength={0}

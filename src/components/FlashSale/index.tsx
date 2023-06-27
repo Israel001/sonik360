@@ -4,6 +4,7 @@ import CountDown from "../Helpers/CountDown";
 import DataIteration from "../Helpers/DataIteration";
 import Layout from "../Partials/Layout";
 
+
 export default function FlashSale() {
   const { showDate, showHour, showMinute, showSecound } =
     CountDown("2023-03-04 4:00:00");
@@ -12,13 +13,7 @@ export default function FlashSale() {
       <div className="flashsale-wrapper w-full">
         <div className="container-x mx-auto">
           <div className="w-full">
-            <div
-              style={{
-                background: `url(${process.env.PUBLIC_URL}/assets/images/flash-sale-ads.png) no-repeat`,
-                backgroundSize: "cover",
-              }}
-              data-aos="fade-right"
-              className="flash-ad w-full h-[400px] flex sm:justify-end justify-center items-center mb-10"
+            <div data-aos="fade-right" className="flash-ad w-full h-[400px] flex sm:justify-end justify-center items-center mb-10"
             >
               <div className="sm:mr-[75px]">
                 <div className="countdown-wrapper w-full flex sm:space-x-6 space-x-3 sm:justify-between justify-evenly">
